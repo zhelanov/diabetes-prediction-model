@@ -1,0 +1,21 @@
+services:
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
+    image: localstack/localstack:s3-latest   # Use a lightweight image with S3 only
+    ports:
+      - "4566:4566"
+    environment:
+      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+      - SERVICES=s3
+  
+  ### While it should be possible to run mlflow in a container I had flaky (!) issue with non-writable directories on my MacOS with 'colima'
+  ### so I decided that I'll run it separately to stop wasting time on troubleshooting
+
+  # mlflow:
+  #   container_name: "${LOCALSTACK_DOCKER_NAME:-mlflow-main}"
+  #   image: ghcr.io/mlflow/mlflow:v2.14.2
+  #   entrypoint: mlflow server --host 0.0.0.0 --backend-store-uri 'sqlite:///mlruns/backend.db' --default-artifact-root 'artifacts'
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - ./mlruns:/mlruns

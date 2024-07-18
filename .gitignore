@@ -1,3 +1,12 @@
+# Don't save mlflow database
+backend.db
+# Don't save the initial dataset
+diabetes_012_health_indicators_BRFSS2015.csv
+# Don't save temporary files
+artifacts
+mlruns
+output
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
